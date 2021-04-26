@@ -7,6 +7,7 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
+import { QuizResultsPageRoute } from "pages/QuizResults/QuizResults";
 
 const PageContainer = styled.div`
   height: 100%;
@@ -19,9 +20,16 @@ const PageContainer = styled.div`
 interface QuizQuestionPageProps {
   time: number;
   stopTimer: () => void;
+  decrementTime: (amount: number) => void;
+  setCurrentPageURL: (url: string) => void;
 }
 
-const QuizQuestionPage = ({ time }: QuizQuestionPageProps) => {
+const QuizQuestionPage = ({
+  time,
+  decrementTime,
+  setCurrentPageURL,
+  stopTimer,
+}: QuizQuestionPageProps) => {
   const questions = [
     {
       question: "What does HTML stand for?",
@@ -40,7 +48,7 @@ const QuizQuestionPage = ({ time }: QuizQuestionPageProps) => {
         "Microsoft",
         "Google",
       ],
-      answerIndex: 1,
+      answerIndex: 0,
     },
   ];
 
@@ -52,8 +60,16 @@ const QuizQuestionPage = ({ time }: QuizQuestionPageProps) => {
   };
 
   const onButtonClick = () => {
-    if (questions.length - 1 !== questionIndex) {
-      setQuestionIndex(questionIndex + 1);
+    if (questions[questionIndex].answerIndex !== selectedIndex) {
+      decrementTime(10);
+    } else {
+      if (questions.length - 1 !== questionIndex) {
+        setQuestionIndex(questionIndex + 1);
+      } else {
+        stopTimer();
+        setQuestionIndex(questionIndex + 1);
+        setCurrentPageURL(QuizResultsPageRoute);
+      }
     }
   };
 
@@ -85,7 +101,7 @@ const QuizQuestionPage = ({ time }: QuizQuestionPageProps) => {
       </FormControl>
       <Spacer height={20} />
       <Button variant="contained" color="primary" onClick={onButtonClick}>
-        Next Question
+        {questions.length - 1 !== questionIndex ? "Next Question" : "Finish"}
       </Button>
     </PageContainer>
   );
