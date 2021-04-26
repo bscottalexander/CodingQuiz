@@ -31,6 +31,11 @@ const App = () => {
     clearInterval(timer);
   };
 
+  const resetTimer = () => {
+    setTimer(undefined);
+    setTime(100);
+  };
+
   const decrementTime = (amount: number) => {
     setTime((currentTime) => {
       if (currentTime - amount < 0) {
@@ -64,7 +69,11 @@ const App = () => {
     }
     case QuizResultsPageRoute: {
       return (
-        <QuizResultsPage time={time} setCurrentPageURL={setCurrentPageURL} />
+        <QuizResultsPage
+          time={time}
+          setCurrentPageURL={setCurrentPageURL}
+          resetTimer={resetTimer}
+        />
       );
     }
     default: {

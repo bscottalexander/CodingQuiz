@@ -18,6 +18,7 @@ const PageContainer = styled.div`
 interface QuizResultsPageProps {
   time: number;
   setCurrentPageURL: (url: string) => void;
+  resetTimer: () => void;
 }
 
 const InputContainer = styled.div`
@@ -25,7 +26,11 @@ const InputContainer = styled.div`
   align-items: center;
 `;
 
-const QuizResultsPage = ({ time, setCurrentPageURL }: QuizResultsPageProps) => {
+const QuizResultsPage = ({
+  time,
+  setCurrentPageURL,
+  resetTimer,
+}: QuizResultsPageProps) => {
   const inputRef = createRef<HTMLInputElement>();
   const [isDisabled, setIsDisabled] = useState(false);
   const [leads, setLeads] = useState<string[]>(
@@ -46,6 +51,7 @@ const QuizResultsPage = ({ time, setCurrentPageURL }: QuizResultsPageProps) => {
   };
 
   const onStartOver = () => {
+    resetTimer();
     setCurrentPageURL(StartQuizPageRoute);
   };
 

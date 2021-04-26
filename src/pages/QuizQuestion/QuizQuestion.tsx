@@ -50,6 +50,24 @@ const QuizQuestionPage = ({
       ],
       answerIndex: 0,
     },
+    {
+      question: "Where is the correct place to insert a JavaScript?",
+      answers: [
+        "The <Body> Section",
+        "The <Head> Section",
+        "Both the <Body> and <Head> Section are Correct",
+      ],
+      answerIndex: 0,
+    },
+    {
+      question: "What are variables used for in JavaScript Programs?",
+      answers: [
+        " Storing numbers, dates, or other values",
+        "Varying randomly",
+        "Causing high-school algebra flashbacks",
+      ],
+      answerIndex: 0,
+    },
   ];
 
   const [questionIndex, setQuestionIndex] = useState(0);
